@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import EventCard from "./eventcard";
-// may not be called card group anymore-
+import EventCard from "./eventCard";
 import CardGroup from "react-bootstrap/Card"; 
 
 function Events() {
@@ -16,7 +15,6 @@ function Events() {
 	}, []);
 
 	return (
-		// card group no longer recognized https://react-bootstrap.netlify.app/components/cards/#rb-docs-content
 		<CardGroup className="Events">
 			{events.map((event) => (
 				<EventCard
