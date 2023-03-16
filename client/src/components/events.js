@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import EventCard from "./eventCard";
-import CardGroup from "react-bootstrap/Card"; 
+import EventsTable from "./eventsTable";
 
 function Events() {
 	const [events, setEvents] = useState([]);
@@ -84,18 +83,19 @@ function Events() {
 		// event case
 		// if () {
 			// return eventCard.js
-			return <CardGroup className="Events">
-				{events.map((event) => (
-					<EventCard
-						key={event.id}
-						name={event.name}
-						date={event.date}
-						description={event.description}
-						category={event.category}
-						favorite={event.favorite}
-					/>
-				))}
-			</CardGroup>
+			// return <CardGroup className="Events">
+			// 	{events.map((event) => (
+			// 		<EventCard
+			// 			// key={event.id}
+			// 			// name={event.name}
+			// 			// date={event.date}
+			// 			// description={event.description}
+			// 			// category={event.category}
+			// 			// favorite={event.favorite}
+			// 		/>
+			// 	))}
+			// </CardGroup>
+			return <EventsTable data={events} />
 		// }
 		// delete case
 		// if () {
