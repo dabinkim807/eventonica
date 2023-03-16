@@ -56,6 +56,13 @@ app.get("/api/events", async (req, res) => {
 	res.json(events);
 });
 
+// POST request - add event
+
+// PUT request - edit event
+
+// DELETE request - delete event
+
+
 app.listen(PORT, () =>
 	console.log(`Hello! Back-end Server is running on Port http://localhost:${PORT}`)
 );

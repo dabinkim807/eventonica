@@ -16,17 +16,36 @@ function Events() {
 
 	useEffect(() => {getRequest()}, []);
 
+	const toggleCards = () => {
+		if (events.length === 0) {
+			return <></>
+		}
+		// event case
+		// if () {
+			// return eventCard.js
+			return <CardGroup className="Events">
+				{events.map((event) => (
+					<EventCard
+						key={event.id}
+						title={event.title}
+						location={event.location}
+						time={event.eventtime}
+					/>
+				))}
+			</CardGroup>
+		// }
+		// delete case
+		// if () {
+			// return delete.js
+			// return <QuestionCard questionSet={totalQuestions[currentQAndA]} getUserAnswer={handleUserAnswer} progress={currentQAndA+1} outOf={totalQuestions.length} />
+		// }
+		// return addOrEdit.js
+		// return <ResultCard result={validated} changeQuestion={changeQuestion} />
+	}
+
+
 	return (
-		<CardGroup className="Events">
-			{events.map((event) => (
-				<EventCard
-					key={event.id}
-					title={event.title}
-					location={event.location}
-					time={event.eventtime}
-				/>
-			))}
-		</CardGroup>
+		<div>{toggleCards()}</div>
 	);
 }
 

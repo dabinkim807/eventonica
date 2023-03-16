@@ -2,6 +2,10 @@ import Card from 'react-bootstrap/Card';
 import Moment from "react-moment";
 
 const EventCard = (props) => {
+  // key={event.id}
+  // title={event.title}
+  // location={event.location}
+  // time={event.eventtime}
 
   return (
     <Card style={{ width: '18rem' }}>
