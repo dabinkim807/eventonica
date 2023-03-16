@@ -32,26 +32,50 @@ app.get("/api/events", async (req, res) => {
 	const events = [
 		{
 			id: 1,
-			title: "Women in Tech Techtonica Panel",
-			location: "Overland Park Convention Center",
+			name: "Women in Tech Techtonica Panel",
+			date: "10/10/23",
+			description: "Overland Park Convention Center",
+			category: "Personal",
+			favorite: true
 		},
 		{
 			id: 2,
-			title: "Japanese Cultural Education",
-			location: "Seattle Convention Center",
+			name: "Japanese Cultural Education",
+			date: "10/10/23",
+			description: "Seattle Convention Center",
+			category: "Work",
+			favorite: false
 		},
 		{
 			id: 3,
-			title: "Haven 90's Party Night Club",
-			location: "Hilton Hotel Kansas City",
+			name: "Haven 90's Party Night Club",
+			date: "10/10/23",
+			description: "Hilton Hotel Kansas City",
+			category: "Personal",
+			favorite: false
 		},
 		{
 			id: 4,
-			title: "Comedy Night at the Station",
-			location: "SF Hilton Hotel",
+			name: "Comedy Night at the Station",
+			date: "10/10/23",
+			description: "SF Hilton Hotel",
+			category: "Personal",
+			favorite: false
 		},
-		{ id: 5, title: "A Decadent Arts Experience", location: "West Ridge Mall" },
-		{ id: 6, title: "Techtonica Classroom Course", location: "Techtonica HQ" },
+		{ id: 5, 
+			name: "A Decadent Arts Experience", 
+			date: "10/10/23",
+			description: "West Ridge Mall",
+			category: "Personal",
+			favorite: true
+		},
+		{ id: 6, 
+			name: "Techtonica Classroom Course", 
+			date: "10/10/23",
+			description: "Techtonica HQ",
+			category: "Work",
+			favorite: false
+		},
 	];
 	res.json(events);
 });

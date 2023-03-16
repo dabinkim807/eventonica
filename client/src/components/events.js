@@ -27,9 +27,12 @@ function Events() {
 				{events.map((event) => (
 					<EventCard
 						key={event.id}
-						title={event.title}
-						location={event.location}
+						name={event.name}
+						date={event.date}
 						time={event.eventtime}
+						description={event.description}
+						category={event.category}
+						favorite={event.favorite}
 					/>
 				))}
 			</CardGroup>
