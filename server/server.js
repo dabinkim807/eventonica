@@ -3,7 +3,12 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require("path");
 require("dotenv").config();
-const db = require("../server/db/db-connection.js");
+
+// postgres db data
+// const db = require("../server/db/db-connection.js");
+
+// hardcoded events data
+const events = require('./hardcodeEvents.js');
 
 const app = express();
 const PORT = 8080; 
@@ -29,62 +34,57 @@ app.get("/api/events", async (req, res) => {
 
 	// }
 
-	const events = [
-		{
-			id: 1,
-			name: "Women in Tech Techtonica Panel",
-			date: "10/10/23",
-			description: "Overland Park Convention Center",
-			category: "Personal",
-			favorite: true
-		},
-		{
-			id: 2,
-			name: "Japanese Cultural Education",
-			date: "10/10/23",
-			description: "Seattle Convention Center",
-			category: "Work",
-			favorite: false
-		},
-		{
-			id: 3,
-			name: "Haven 90's Party Night Club",
-			date: "10/10/23",
-			description: "Hilton Hotel Kansas City",
-			category: "Personal",
-			favorite: false
-		},
-		{
-			id: 4,
-			name: "Comedy Night at the Station",
-			date: "10/10/23",
-			description: "SF Hilton Hotel",
-			category: "Personal",
-			favorite: false
-		},
-		{ id: 5, 
-			name: "A Decadent Arts Experience", 
-			date: "10/10/23",
-			description: "West Ridge Mall",
-			category: "Personal",
-			favorite: true
-		},
-		{ id: 6, 
-			name: "Techtonica Classroom Course", 
-			date: "10/10/23",
-			description: "Techtonica HQ",
-			category: "Work",
-			favorite: false
-		},
-	];
 	res.json(events);
 });
 
-// POST request - add event
 
-// PUT request - edit event
+// ** POST request - create new event entry **
+app.post('/api/events', (req, res) => {
+  let newEvent = {
+    id: req.body.id, 
+		name: req.body.name, 
+		date: req.body.date,
+		description: req.body.description,
+		category: req.body.category,
+		favorite: req.body.favorite
+  };
+  events.push(newEvent);
 
-// DELETE request - delete event
+  return res.send("New event has been saved!");
+})
+
+
+// ** PUT request - update existing event **
+app.put('/api/events/:eventID', (req, res) => {
+  let requestedEvent = req.params.eventID;
+
+  for (let event of events) {
+    if (event.id === requestedEvent) {
+      event.name = req.body.name, 
+			event.date = req.body.date,
+			event.description = req.body.description,
+			event.category = req.body.category,
+			event.favorite = req.body.favorite
+    }
+  }
+
+  return res.send("Event has been successfully updated.");
+})
+
+
+// ** DELETE request - delete event **
+app.delete('/api/events/:eventID', (req, res) => {
+
+  let deletedBook = req.params.bookID;
+  console.log("deleting " + deletedBook);
+  for (let i = 0; i < books.length; i++) {
+    if (books[i].isbn === deletedBook) {
+      books.splice(i, 1);
+    }
+  }
+
+  return res.send("Book has been successfully deleted.");
+})
 
 
 app.listen(PORT, () =>
