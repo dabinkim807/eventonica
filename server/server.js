@@ -40,7 +40,7 @@ app.get("/api/events", async (req, res) => {
 
 // ** POST request - create new event entry **
 app.post('/api/events', (req, res) => {
-  let newEvent = {
+  const newEvent = {
     id: req.body.id, 
 		name: req.body.name, 
 		date: req.body.date,
@@ -48,6 +48,11 @@ app.post('/api/events', (req, res) => {
 		category: req.body.category,
 		favorite: req.body.favorite
   };
+
+	// Postgres db
+	// const result = await db.query("INSERT INTO events (id, name, date, description, category, favorite) VALUES ($1, $2, $3) RETURNING *",
+	// [newEvent.name, newEvent.date, newEvent.description, newEvent.category, newEvent.favorite]);
+
   events.push(newEvent);
 
   return res.send("New event has been saved!");
@@ -59,7 +64,7 @@ app.put('/api/events/:eventID', (req, res) => {
   let requestedEvent = req.params.eventID;
 
   for (let event of events) {
-    if (event.id === requestedEvent) {
+    if (event.id === Number(requestedEvent)) {
       event.name = req.body.name, 
 			event.date = req.body.date,
 			event.description = req.body.description,
@@ -75,15 +80,15 @@ app.put('/api/events/:eventID', (req, res) => {
 // ** DELETE request - delete event **
 app.delete('/api/events/:eventID', (req, res) => {
 
-  let deletedBook = req.params.bookID;
-  console.log("deleting " + deletedBook);
-  for (let i = 0; i < books.length; i++) {
-    if (books[i].isbn === deletedBook) {
-      books.splice(i, 1);
+  let deletedEvent = req.params.eventID;
+  // console.log("deleting " + deletedEvent);
+  for (let i = 0; i < events.length; i++) {
+    if (events[i].id === Number(deletedEvent)) {
+      events.splice(i, 1);
     }
   }
 
-  return res.send("Book has been successfully deleted.");
+  return res.send("Event has been successfully deleted.");
 })
 
 
