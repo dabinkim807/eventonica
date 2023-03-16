@@ -2,7 +2,7 @@ const hardcodeEvents = [
   {
     id: 1,
     name: "Women in Tech Techtonica Panel",
-    date: "10/10/23",
+    date: "2020-07-01 19:10:25",
     description: "Overland Park Convention Center",
     category: "Personal",
     favorite: true
@@ -10,7 +10,7 @@ const hardcodeEvents = [
   {
     id: 2,
     name: "Japanese Cultural Education",
-    date: "10/10/23",
+    date: "2020-07-01 19:10:25",
     description: "Seattle Convention Center",
     category: "Work",
     favorite: false
@@ -18,7 +18,7 @@ const hardcodeEvents = [
   {
     id: 3,
     name: "Haven 90's Party Night Club",
-    date: "10/10/23",
+    date: "2020-07-01 19:10:25",
     description: "Hilton Hotel Kansas City",
     category: "Personal",
     favorite: false
@@ -26,21 +26,21 @@ const hardcodeEvents = [
   {
     id: 4,
     name: "Comedy Night at the Station",
-    date: "10/10/23",
+    date: "2020-07-01 19:10:25",
     description: "SF Hilton Hotel",
     category: "Personal",
     favorite: false
   },
   { id: 5, 
     name: "A Decadent Arts Experience", 
-    date: "10/10/23",
+    date: "2020-07-01 19:10:25",
     description: "West Ridge Mall",
     category: "Personal",
     favorite: true
   },
   { id: 6, 
     name: "Techtonica Classroom Course", 
-    date: "10/10/23",
+    date: "2020-07-01 19:10:25",
     description: "Techtonica HQ",
     category: "Work",
     favorite: false

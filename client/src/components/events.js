@@ -16,6 +16,12 @@ function Events() {
 
 	useEffect(() => {getRequest()}, []);
 
+	// post request
+
+	// put request
+
+	// delete request
+
 	const toggleCards = () => {
 		if (events.length === 0) {
 			return <></>
@@ -29,7 +35,6 @@ function Events() {
 						key={event.id}
 						name={event.name}
 						date={event.date}
-						time={event.eventtime}
 						description={event.description}
 						category={event.category}
 						favorite={event.favorite}

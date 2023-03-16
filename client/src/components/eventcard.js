@@ -14,7 +14,7 @@ const EventCard = (props) => {
     <Card style={{ width: '18rem' }}>
       <Card.Body>
         <Card.Title>{props.name}</Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">Date: {!props.time ? "TBD" : <Moment format={"DD/MM/YYYY"}>{props.time}</Moment>}</Card.Subtitle>
+        <Card.Subtitle className="mb-2 text-muted">Date: {!props.date ? "TBD" : <Moment format={"LLLL"}>{props.date}</Moment>}</Card.Subtitle>
         <Card.Subtitle>Favorite: {props.favorite}</Card.Subtitle>
         <Card.Text>
           {props.description}
