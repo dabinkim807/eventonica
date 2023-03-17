@@ -122,7 +122,7 @@ const putRequest = () => {
               <option value="Personal">Personal</option>
               <option value="Work">Work</option>
             </select> 
-            <button type="submit">Cancel</button>
+            <button type="submit" onClick={props.onClose}>Cancel</button>
             <button type="submit" onClick={handleSubmit}>Save</button>
           </form>
         </Box>
