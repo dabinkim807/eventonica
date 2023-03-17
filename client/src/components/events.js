@@ -108,7 +108,7 @@ function Events() {
 
 
 	return (
-		<div>{toggleCards()}</div>
+		<>{toggleCards()}</>
 	);
 }
 
