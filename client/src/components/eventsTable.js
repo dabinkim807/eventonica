@@ -1,3 +1,5 @@
+import {useState} from "react";
+
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -9,10 +11,31 @@ import Paper from '@mui/material/Paper';
 import Moment from "react-moment";
 
 import AddOrEdit from './addOrEdit';
-import Delete from './delete';
+
 
 const EventsTable = (props) => {
-  // data={events}
+  // data={events} 
+  // getRequest={getRequest}
+
+  const defaultEvent = {
+    id: null,
+    name: "",
+    date: "",
+    description: "",
+    category: ""
+  };
+
+  const [data, setData] = useState(defaultEvent);
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = (eventData) => {
+    console.log(eventData);
+    setData(eventData);
+    setOpen(true);
+  }
+
+  const handleClose = () => setOpen(false);
+
 
   return (
     <div className="table">
@@ -34,13 +57,11 @@ const EventsTable = (props) => {
                 key={event.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell component="th" scope="row">
-                  {event.name}
-                </TableCell>
+                <TableCell component="th" scope="row">{event.name}</TableCell>
                 <TableCell><Moment format={"llll"}>{event.date}</Moment></TableCell>
                 <TableCell>{event.description}</TableCell>
                 <TableCell>{event.category}</TableCell>
-                <TableCell><button>edit</button></TableCell>
+                <TableCell><button onClick={() => handleOpen(event)}>edit</button></TableCell>
                 <TableCell><button>delete</button></TableCell>
               </TableRow>
             ))}
@@ -49,6 +70,8 @@ const EventsTable = (props) => {
         
       </TableContainer>
       <button>New Event</button>
+
+      <AddOrEdit open={open} onClose={handleClose} event={data} setEvent={setData} setOpen={setOpen} getRequest={props.getRequest}/>
     </div>
   )
 }

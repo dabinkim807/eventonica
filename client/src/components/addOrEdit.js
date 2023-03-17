@@ -1,52 +1,129 @@
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+
+
 const AddOrEdit = (props) => {
-  // data={events}
+  // open={open} 
+  // onClose={handleClose} 
+  // event={data} 
+  // setEvent={setData} 
+  // setOpen={setOpen}
+  // getRequest={props.getRequest}
+  let event = props.event;
+  console.log(event);
+
 
   const handleNameChange = (e) => {
     e.preventDefault();
-    let newTitle = e.target.value;
-    // setEvent((event) => ({ ...event, title: newTitle }));
-    //console.log(event.title);
+    props.setEvent((event) => ({...event, name:e.target.value}));
+    console.log(event);
   }
   
   const handleDateChange = (e) => {
     e.preventDefault();
-    let newLocation = e.target.value;
-    // setEvent((event) => ({ ...event, location: newLocation }));
-    //console.log(event.location);
+    props.setEvent((event) => ({...event, date:e.target.value}));
   }
 
   const handleDescChange = (e) => {
     e.preventDefault();
-    let newDate = e.target.value;
-    // setEvent((event) => ({ ...event, eventtime: newDate }));
-    //console.log(event.eventtime);
+    props.setEvent((event) => ({...event, description:e.target.value}));
   }
 
   const handleCatChange = (e) => {
     e.preventDefault();
-    let newDate = e.target.value;
-    // setEvent((event) => ({ ...event, eventtime: newDate }));
-    //console.log(event.eventtime);
+    props.setEvent((event) => ({...event, category:e.target.value}));
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // setEvent(event);
-    // props.postRequest(event);
+    console.log(event);
+    // if (event.id === null) {
+    //   postRequest();
+    // } else {
+      putRequest();
+    // }
+    props.setOpen(false);
   }
 
+  
+// post request
+// const postRequest = () => {
+//   fetch(`http://localhost:8080/api/events`, {
+//     method: "POST",
+//     headers: {
+//       "Content-type": "application/JSON"
+//     },
+//     body: JSON.stringify(props.data)
+//   })
+//     .then((response) => response.json())
+//     .then((result) => {
+//       console.log(result);
+//     });
+// }
+
+// put request
+const putRequest = () => {
+  console.log(event);
+  fetch(`http://localhost:8080/api/events/${event.id}`, {
+    method: "PUT",
+    headers: {
+      "Content-type": "application/JSON"
+    },
+    body: JSON.stringify(event)
+  })
+    .then(() => {
+      console.log("success");
+      props.getRequest();
+    });
+}
+
+// delete request
+// const deleteRequest = (id) => {
+//   fetch(`http://localhost:8080/api/events/${id}`, {
+//     method: "DELETE",
+//     headers: {
+//       "Content-type": "application/JSON"
+//     },
+//   })
+//     .then((response) => response.json())
+//     .then((result) => {
+//       console.log(result);
+//       // setValidated(result);
+
+//       // if (result.isCorrect) {
+//       // 	setScore(score + 1);
+//       // }
+
+//     });
+// }
+
+
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 800,
+    height: 800,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+
+
   return (
-    <div className="add-edit-modal">
-      <div className="modal-content">
+    <Modal open={props.open} onClose={props.onClose}>
+      <Box sx={style}>          
         <span className="close">&times;</span>
-        <form onSubmit={handleSubmit}>
+        <form>
           <label>Name</label>
           <input
             type="text"
             id="add-event-name"
             placeholder="Add event name"
             required
-            value={props.data.name}
+            value={event.name}
             onChange={handleNameChange}
           />
           <label>Date</label>
@@ -54,7 +131,7 @@ const AddOrEdit = (props) => {
             type="datetime-local"
             id="date"
             required
-            value={props.data.date}
+            value={event.date}
             onChange={handleDateChange}
           />
           <label>Description</label>
@@ -62,19 +139,20 @@ const AddOrEdit = (props) => {
             type="text"
             id="desc"
             placeholder="Add description"
-            value={props.data.description}
+            value={event.description}
             onChange={handleDescChange}
           />
           <label>Category</label>
-          <select id="category" onChange={handleCatChange}>
-            <option value="" disabled selected hidden>--Please choose an option--</option>
+          <select id="category" defaultValue={event.category} onChange={handleCatChange}>
+            <option value="" disabled hidden>--Please choose an option--</option>
             <option value="personal">Personal</option>
             <option value="work">Work</option>
           </select> 
-          <button type="submit">Save</button>
+          <button type="submit" onClick={handleSubmit}>Save</button>
         </form>
-      </div>
-    </div>
+
+      </Box>
+    </Modal>
   )
 }
 

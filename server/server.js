@@ -40,6 +40,10 @@ app.get("/api/events", async (req, res) => {
 
 // ** POST request - create new event entry **
 app.post('/api/events', (req, res) => {
+	let requestedEvent = req.params.eventID;
+	console.log(requestedEvent);
+	console.log(req.body);
+
   const newEvent = {
     id: req.body.id, 
 		name: req.body.name, 
@@ -54,15 +58,17 @@ app.post('/api/events', (req, res) => {
 	// [newEvent.name, newEvent.date, newEvent.description, newEvent.category, newEvent.favorite]);
 
   events.push(newEvent);
-
-  return res.send("New event has been saved!");
+	
+	return res.end();
+  // return res.send("New event has been saved!");
 })
 
 
 // ** PUT request - update existing event **
 app.put('/api/events/:eventID', (req, res) => {
   let requestedEvent = req.params.eventID;
-
+	console.log(requestedEvent);
+	console.log(req.body);
   for (let event of events) {
     if (event.id === Number(requestedEvent)) {
       event.name = req.body.name, 
@@ -72,8 +78,8 @@ app.put('/api/events/:eventID', (req, res) => {
 			event.favorite = req.body.favorite
     }
   }
-
-  return res.send("Event has been successfully updated.");
+	return res.end();
+  // return res.send("Event has been successfully updated.");
 })
 
 
@@ -87,8 +93,8 @@ app.delete('/api/events/:eventID', (req, res) => {
       events.splice(i, 1);
     }
   }
-
-  return res.send("Event has been successfully deleted.");
+	return res.end();
+  // return res.send("Event has been successfully deleted.");
 })
 
 
