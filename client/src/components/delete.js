@@ -41,13 +41,15 @@ const Delete = (props) => {
 
 
   return (
-    <Modal open={props.open} onClose={props.onClose}>
-      <Box sx={style}>          
-        Are you sure you want to delete "{props.event.name}"?
-        <button type="submit">Cancel</button>
-        <button type="submit" onClick={handleDelete}>Delete</button>
-      </Box>
-    </Modal>
+    <div className="delete-modal">
+      <Modal open={props.open} onClose={props.onClose}>
+        <Box sx={style}>          
+          Are you sure you want to delete "{props.event.name}"?
+          <button type="submit">Cancel</button>
+          <button type="submit" onClick={handleDelete}>Delete</button>
+        </Box>
+      </Modal>
+    </div>
   )
 }
 

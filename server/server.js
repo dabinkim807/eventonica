@@ -1,3 +1,4 @@
+const moment = require("moment");
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -26,12 +27,12 @@ app.get("/api/events", async (req, res) => {
 	// real connection with the DB eventonica
 	try{
 		const { rows: events } = await db.query('SELECT * FROM events');
+		console.log(events);
 		res.send(events);
 
 	} catch(error){
 		console.log(error);
 		return res.status(400).json({error});
-
 	}
 
 	// hardcoded data
@@ -55,7 +56,15 @@ app.post('/api/events', async (req, res) => {
 	// max+=1;
 
 	// Postgres db
-	const result = await db.query("INSERT INTO events (name, date, description, category, favorite) VALUES ($1, $2, $3, $4, $5) RETURNING *", [req.body.name, req.body.date, req.body.description, req.body.category.toLowerCase(), req.body.favorite]);
+	try {
+		const result = await db.query(
+			"INSERT INTO events (name, date, description, category, favorite) VALUES ($1, $2, $3, $4, $5) RETURNING *", 
+			[req.body.name, req.body.date, req.body.description, req.body.category, req.body.favorite]
+		);
+	} catch(error) {
+		console.log(error);
+	}
+	
 	console.log(result);
 
   const newEvent = {
@@ -84,21 +93,32 @@ app.post('/api/events', async (req, res) => {
 
 
 // ** PUT request - update existing event **
-app.put('/api/events/:eventID', (req, res) => {
-  let requestedEvent = req.params.eventID;
-	console.log(requestedEvent);
-	console.log(req.body);
-  for (let event of events) {
-    if (event.id === Number(requestedEvent)) {
-      event.name = req.body.name, 
-			event.date = req.body.date,
-			event.description = req.body.description,
-			event.category = req.body.category,
-			event.favorite = req.body.favorite
-    }
-  }
+app.put('/api/events/:eventID', async (req, res) => {
+  // let requestedEvent = req.params.eventID;
+	const id = parsetInt(req.params.id);
+
+	// Postgres db
+	try {
+		const result = await db.query(
+			"UPDATE events SET (name = $1, date = $2, description = $3, category = $4, favorite = $5) WHERE id = $7 RETURNING *", 
+			[req.body.name, req.body.date, req.body.description, req.body.category, req.body.favorite, id]
+		);
+	} catch(error) {
+		console.log(error);
+	}
+	console.log(result);
+
+	// hardcoded data
+  // for (let event of events) {
+  //   if (event.id === Number(requestedEvent)) {
+  //     event.name = req.body.name, 
+	// 		event.date = req.body.date,
+	// 		event.description = req.body.description,
+	// 		event.category = req.body.category,
+	// 		event.favorite = req.body.favorite
+  //   }
+  // }
 	return res.end();
-  // return res.send("Event has been successfully updated.");
 })
 
 

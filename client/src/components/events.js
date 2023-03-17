@@ -20,6 +20,9 @@ function Events() {
 		fetch("http://localhost:8080/api/events")
 		.then((response) => response.json())
 		.then(events => {
+			for (let event of events) {
+				event.date = event.date.substring(0, 16);
+			}
 			setEvents(events); 
 			console.log('Events fetched...', events);
 			});
