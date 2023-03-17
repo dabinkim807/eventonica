@@ -7,7 +7,6 @@ const AddOrEdit = (props) => {
   let event = props.event;
   console.log(event);
 
-
   const handleNameChange = (e) => {
     e.preventDefault();
     props.setEvent((event) => ({...event, name:e.target.value}));

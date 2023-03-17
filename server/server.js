@@ -5,10 +5,10 @@ const path = require("path");
 require("dotenv").config();
 
 // postgres db data
-// const db = require("../server/db/db-connection.js");
+const db = require("../server/db/db-connection.js");
 
 // hardcoded events data
-const events = require('./hardcodeEvents.js');
+// const events = require('s./hardcodeEvents.js');
 
 const app = express();
 const PORT = 8080; 
@@ -24,51 +24,62 @@ app.get("/", (req, res) => {
 
 app.get("/api/events", async (req, res) => {
 	// real connection with the DB eventonica
-	// try{
-	// 	const { rows: events } = await db.query('SELECT * FROM events');
-	// 	res.send(events);
+	try{
+		const { rows: events } = await db.query('SELECT * FROM events');
+		res.send(events);
 
-	// } catch(error){
-	// 	console.log(error);
-	// 	return res.status(400).json({error});
+	} catch(error){
+		console.log(error);
+		return res.status(400).json({error});
 
-	// }
+	}
 
-	res.json(events);
+	// hardcoded data
+	// res.json(events);
 });
 
-
-let max = 0;
-for (let i = 0; i < events.length; i++) {
-	if (events[i].id > max) {
-		max = events[i].id;
-	}
-}
+// hardcoded data
+// let max = 0;
+// for (let i = 0; i < events.length; i++) {
+// 	if (events[i].id > max) {
+// 		max = events[i].id;
+// 	}
+// }
 
 // ** POST request - create new event entry **
-app.post('/api/events', (req, res) => {
+app.post('/api/events', async (req, res) => {
 	let requestedEvent = req.params.eventID;
 	console.log(requestedEvent);
 	console.log(req.body);
 
-	max+=1;
-
-  const newEvent = {
-    id: max, 
-		name: req.body.name, 
-		date: req.body.date,
-		description: req.body.description,
-		category: req.body.category,
-		favorite: req.body.favorite
-  };
+	// max+=1;
 
 	// Postgres db
-	// const result = await db.query("INSERT INTO events (name, date, description, category, favorite) VALUES ($1, $2, $3, $4, $5) RETURNING *", [newEvent.name, newEvent.date, newEvent.description, newEvent.category, newEvent.favorite]);
+	const result = await db.query("INSERT INTO events (name, date, description, category, favorite) VALUES ($1, $2, $3, $4, $5) RETURNING *", [req.body.name, req.body.date, req.body.description, req.body.category.toLowerCase(), req.body.favorite]);
+	console.log(result);
 
-  events.push(newEvent);
+  const newEvent = {
+		id: result.id, 
+		name: result.name, 
+		date: result.date,
+		description: result.description,
+		category: result.category,
+		favorite: result.favorite
+  };
 
+	// hardcoded data
+
+	// const newEvent = {
+  //   id: max, 
+	// 	name: req.body.name, 
+	// 	date: req.body.date,
+	// 	description: req.body.description,
+	// 	category: req.body.category,
+	// 	favorite: req.body.favorite
+  // };
+
+  // events.push(newEvent);
 	return res.end();
-  // return res.send("New event has been saved!");
 })
 
 

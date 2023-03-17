@@ -43,6 +43,7 @@ const EventsTable = (props) => {
   const handleClose = () => setOpen(false);
   const handleDelClose = () => setDelOpen(false);
 
+  
   return (
     <div className="table">
       <TableContainer component={Paper}>
@@ -75,7 +76,6 @@ const EventsTable = (props) => {
         </Table>
         
       </TableContainer>
-      <button onClick={() => handleOpen(defaultEvent)}>New Event</button>
 
       <AddOrEdit open={open} onClose={handleClose} event={data} setEvent={setData} setOpen={setOpen} getRequest={props.getRequest} />
       <Delete open={delOpen} onClose={handleDelClose} event={data} setEvent={setData} setDelOpen={setDelOpen} getRequest={props.getRequest} />
