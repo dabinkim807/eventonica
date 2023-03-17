@@ -118,7 +118,7 @@ const putRequest = () => {
             />
             <label>Category</label>
             <select id="category" defaultValue={event.category} onChange={handleCatChange}>
-              <option value="--Please choose an option--" disabled hidden>--Please choose an option--</option>
+              <option value="" disabled>--Please choose an option--</option>
               <option value="Personal">Personal</option>
               <option value="Work">Work</option>
             </select> 

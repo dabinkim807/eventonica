@@ -49,8 +49,6 @@ app.get("/api/events", async (req, res) => {
 
 // ** POST request - create new event entry **
 app.post('/api/events', async (req, res) => {
-	let requestedEvent = req.params.eventID;
-	console.log(requestedEvent);
 	console.log(req.body);
 
 	// max+=1;
@@ -61,20 +59,19 @@ app.post('/api/events', async (req, res) => {
 			"INSERT INTO events (name, date, description, category, favorite) VALUES ($1, $2, $3, $4, $5) RETURNING *", 
 			[req.body.name, req.body.date, req.body.description, req.body.category, req.body.favorite]
 		);
+		const newEvent = {
+			id: result.id, 
+			name: result.name, 
+			date: result.date,
+			description: result.description,
+			category: result.category,
+			favorite: result.favorite
+		};
+		console.log(result);
 	} catch(error) {
 		console.log(error);
 	}
 	
-	console.log(result);
-
-  const newEvent = {
-		id: result.id, 
-		name: result.name, 
-		date: result.date,
-		description: result.description,
-		category: result.category,
-		favorite: result.favorite
-  };
 
 	// hardcoded data
 
@@ -94,8 +91,7 @@ app.post('/api/events', async (req, res) => {
 
 // ** PUT request - update existing event **
 app.put('/api/events/:eventID', async (req, res) => {
-  // let requestedEvent = req.params.eventID;
-	const id = parsetInt(req.params.id);
+	const id = parsetInt(req.query.eventID);
 
 	// Postgres db
 	try {
@@ -123,17 +119,27 @@ app.put('/api/events/:eventID', async (req, res) => {
 
 
 // ** DELETE request - delete event **
-app.delete('/api/events/:eventID', (req, res) => {
+app.delete('/api/events/:eventID', async (req, res) => {
+	// let requestedEvent = req.params.eventID;
 
-  let deletedEvent = req.params.eventID;
+	const id = parseInt( req.params.eventID);
+
+	// Postgres db
+	try {
+		const result = await db.query("DELETE FROM events WHERE id = $1", [id]);
+		res.status(200).send(`Event deleted with ID: ${id}`)
+	} catch(error) {
+		console.log(error);
+	}
+
+  // let deletedEvent = req.params.eventID;
   // console.log("deleting " + deletedEvent);
-  for (let i = 0; i < events.length; i++) {
-    if (events[i].id === Number(deletedEvent)) {
-      events.splice(i, 1);
-    }
-  }
+  // for (let i = 0; i < events.length; i++) {
+  //   if (events[i].id === Number(deletedEvent)) {
+  //     events.splice(i, 1);
+  //   }
+  // }
 	return res.end();
-  // return res.send("Event has been successfully deleted.");
 })
 
 

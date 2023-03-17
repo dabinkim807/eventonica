@@ -8,7 +8,7 @@ function Events() {
     name: "",
     date: "",
     description: "",
-    category: "--Please choose an option--"
+    category: "Personal"
   };
 
 	const [events, setEvents] = useState([]);
