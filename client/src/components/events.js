@@ -76,39 +76,8 @@ function Events() {
 			});
 	}
 
-	const toggleCards = () => {
-		if (events.length === 0) {
-			return <></>
-		}
-		// event case
-		// if () {
-			// return eventCard.js
-			// return <CardGroup className="Events">
-			// 	{events.map((event) => (
-			// 		<EventCard
-			// 			// key={event.id}
-			// 			// name={event.name}
-			// 			// date={event.date}
-			// 			// description={event.description}
-			// 			// category={event.category}
-			// 			// favorite={event.favorite}
-			// 		/>
-			// 	))}
-			// </CardGroup>
-			return <EventsTable data={events} />
-		// }
-		// delete case
-		// if () {
-			// return delete.js
-			// return <QuestionCard questionSet={totalQuestions[currentQAndA]} getUserAnswer={handleUserAnswer} progress={currentQAndA+1} outOf={totalQuestions.length} />
-		// }
-		// return addOrEdit.js
-		// return <ResultCard result={validated} changeQuestion={changeQuestion} />
-	}
-
-
 	return (
-		<>{toggleCards()}</>
+		<>{events.length !== 0 ? <EventsTable data={events} /> : <></>}</>
 	);
 }
 
