@@ -22,7 +22,7 @@ const EventsTable = (props) => {
     name: "",
     date: "",
     description: "",
-    category: ""
+    category: "--Please choose an option--"
   };
 
   const [data, setData] = useState(defaultEvent);
@@ -69,7 +69,7 @@ const EventsTable = (props) => {
         </Table>
         
       </TableContainer>
-      <button>New Event</button>
+      <button onClick={() => handleOpen(defaultEvent)}>New Event</button>
 
       <AddOrEdit open={open} onClose={handleClose} event={data} setEvent={setData} setOpen={setOpen} getRequest={props.getRequest}/>
     </div>

@@ -37,29 +37,29 @@ const AddOrEdit = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(event);
-    // if (event.id === null) {
-    //   postRequest();
-    // } else {
+    if (event.id === null) {
+      postRequest();
+    } else {
       putRequest();
-    // }
+    }
     props.setOpen(false);
   }
 
   
 // post request
-// const postRequest = () => {
-//   fetch(`http://localhost:8080/api/events`, {
-//     method: "POST",
-//     headers: {
-//       "Content-type": "application/JSON"
-//     },
-//     body: JSON.stringify(props.data)
-//   })
-//     .then((response) => response.json())
-//     .then((result) => {
-//       console.log(result);
-//     });
-// }
+const postRequest = () => {
+  fetch(`http://localhost:8080/api/events`, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/JSON"
+    },
+    body: JSON.stringify(event)
+  })
+    .then(() => {
+      console.log("posted");
+      props.getRequest();
+    });
+}
 
 // put request
 const putRequest = () => {
@@ -72,7 +72,7 @@ const putRequest = () => {
     body: JSON.stringify(event)
   })
     .then(() => {
-      console.log("success");
+      console.log("put");
       props.getRequest();
     });
 }
@@ -144,9 +144,9 @@ const putRequest = () => {
           />
           <label>Category</label>
           <select id="category" defaultValue={event.category} onChange={handleCatChange}>
-            <option value="" disabled hidden>--Please choose an option--</option>
-            <option value="personal">Personal</option>
-            <option value="work">Work</option>
+            <option value="--Please choose an option--" disabled hidden>--Please choose an option--</option>
+            <option value="Personal">Personal</option>
+            <option value="Work">Work</option>
           </select> 
           <button type="submit" onClick={handleSubmit}>Save</button>
         </form>
