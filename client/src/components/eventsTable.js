@@ -11,11 +11,11 @@ import Paper from '@mui/material/Paper';
 import Moment from "react-moment";
 
 import AddOrEdit from './addOrEdit';
+import Delete from './delete';
 
 
 const EventsTable = (props) => {
-  // data={events} 
-  // getRequest={getRequest}
+  // data={events} getRequest={getRequest}
 
   const defaultEvent = {
     id: null,
@@ -27,15 +27,21 @@ const EventsTable = (props) => {
 
   const [data, setData] = useState(defaultEvent);
   const [open, setOpen] = useState(false);
+  const [delOpen, setDelOpen] = useState(false);
 
   const handleOpen = (eventData) => {
     console.log(eventData);
     setData(eventData);
     setOpen(true);
   }
+  const handleDelOpen = (eventData) => {
+    console.log(eventData);
+    setData(eventData);
+    setDelOpen(true);
+  }
 
   const handleClose = () => setOpen(false);
-
+  const handleDelClose = () => setDelOpen(false);
 
   return (
     <div className="table">
@@ -62,7 +68,7 @@ const EventsTable = (props) => {
                 <TableCell>{event.description}</TableCell>
                 <TableCell>{event.category}</TableCell>
                 <TableCell><button onClick={() => handleOpen(event)}>edit</button></TableCell>
-                <TableCell><button>delete</button></TableCell>
+                <TableCell><button onClick={() => handleDelOpen(event)}>delete</button></TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -71,7 +77,8 @@ const EventsTable = (props) => {
       </TableContainer>
       <button onClick={() => handleOpen(defaultEvent)}>New Event</button>
 
-      <AddOrEdit open={open} onClose={handleClose} event={data} setEvent={setData} setOpen={setOpen} getRequest={props.getRequest}/>
+      <AddOrEdit open={open} onClose={handleClose} event={data} setEvent={setData} setOpen={setOpen} getRequest={props.getRequest} />
+      <Delete open={delOpen} onClose={handleDelClose} event={data} setEvent={setData} setDelOpen={setDelOpen} getRequest={props.getRequest} />
     </div>
   )
 }

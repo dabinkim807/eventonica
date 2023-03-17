@@ -38,14 +38,23 @@ app.get("/api/events", async (req, res) => {
 });
 
 
+let max = 0;
+for (let i = 0; i < events.length; i++) {
+	if (events[i].id > max) {
+		max = events[i].id;
+	}
+}
+
 // ** POST request - create new event entry **
 app.post('/api/events', (req, res) => {
 	let requestedEvent = req.params.eventID;
 	console.log(requestedEvent);
 	console.log(req.body);
 
+	max+=1;
+
   const newEvent = {
-    id: req.body.id, 
+    id: max, 
 		name: req.body.name, 
 		date: req.body.date,
 		description: req.body.description,
@@ -54,11 +63,10 @@ app.post('/api/events', (req, res) => {
   };
 
 	// Postgres db
-	// const result = await db.query("INSERT INTO events (id, name, date, description, category, favorite) VALUES ($1, $2, $3) RETURNING *",
-	// [newEvent.name, newEvent.date, newEvent.description, newEvent.category, newEvent.favorite]);
+	// const result = await db.query("INSERT INTO events (name, date, description, category, favorite) VALUES ($1, $2, $3, $4, $5) RETURNING *", [newEvent.name, newEvent.date, newEvent.description, newEvent.category, newEvent.favorite]);
 
   events.push(newEvent);
-	
+
 	return res.end();
   // return res.send("New event has been saved!");
 })

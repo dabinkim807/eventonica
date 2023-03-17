@@ -3,12 +3,7 @@ import Modal from '@mui/material/Modal';
 
 
 const AddOrEdit = (props) => {
-  // open={open} 
-  // onClose={handleClose} 
-  // event={data} 
-  // setEvent={setData} 
-  // setOpen={setOpen}
-  // getRequest={props.getRequest}
+  // open={open} onClose={handleClose} event={data} setEvent={setData} setOpen={setOpen} getRequest={props.getRequest}
   let event = props.event;
   console.log(event);
 
@@ -77,26 +72,6 @@ const putRequest = () => {
     });
 }
 
-// delete request
-// const deleteRequest = (id) => {
-//   fetch(`http://localhost:8080/api/events/${id}`, {
-//     method: "DELETE",
-//     headers: {
-//       "Content-type": "application/JSON"
-//     },
-//   })
-//     .then((response) => response.json())
-//     .then((result) => {
-//       console.log(result);
-//       // setValidated(result);
-
-//       // if (result.isCorrect) {
-//       // 	setScore(score + 1);
-//       // }
-
-//     });
-// }
-
 
   const style = {
     position: 'absolute',
@@ -115,7 +90,6 @@ const putRequest = () => {
   return (
     <Modal open={props.open} onClose={props.onClose}>
       <Box sx={style}>          
-        <span className="close">&times;</span>
         <form>
           <label>Name</label>
           <input
@@ -148,6 +122,7 @@ const putRequest = () => {
             <option value="Personal">Personal</option>
             <option value="Work">Work</option>
           </select> 
+          <button type="submit">Cancel</button>
           <button type="submit" onClick={handleSubmit}>Save</button>
         </form>
 
