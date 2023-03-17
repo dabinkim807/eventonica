@@ -77,8 +77,8 @@ const putRequest = () => {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 800,
-    height: 800,
+    width: 600,
+    height: 400,
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -89,7 +89,8 @@ const putRequest = () => {
   return (
     <div className="main-modal">
       <Modal open={props.open} onClose={props.onClose}>
-        <Box sx={style}>          
+        <Box sx={style}>     
+          <h2>Add/Edit Event</h2>     
           <form>
             <label>Name</label>
             <input
