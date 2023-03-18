@@ -15,7 +15,6 @@ function Events() {
 	const [data, setData] = useState(defaultEvent);
   const [open, setOpen] = useState(false);
 
-
 	const getRequest = () => {
 		fetch("http://localhost:8080/api/events")
 		.then((response) => response.json())

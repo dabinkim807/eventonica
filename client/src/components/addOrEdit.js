@@ -5,32 +5,26 @@ import Modal from '@mui/material/Modal';
 const AddOrEdit = (props) => {
   // open={open} onClose={handleClose} event={data} setEvent={setData} setOpen={setOpen} getRequest={props.getRequest}
   let event = props.event;
-  console.log(event);
 
   const handleNameChange = (e) => {
     e.preventDefault();
     props.setEvent((event) => ({...event, name:e.target.value}));
     console.log(event);
   }
-  
   const handleDateChange = (e) => {
     e.preventDefault();
     props.setEvent((event) => ({...event, date:e.target.value}));
   }
-
   const handleDescChange = (e) => {
     e.preventDefault();
     props.setEvent((event) => ({...event, description:e.target.value}));
   }
-
   const handleCatChange = (e) => {
     e.preventDefault();
     props.setEvent((event) => ({...event, category:e.target.value}));
   }
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(event);
     if (event.id === null) {
       postRequest();
     } else {
@@ -38,39 +32,31 @@ const AddOrEdit = (props) => {
     }
     props.setOpen(false);
   }
-
   
-// post request
-const postRequest = () => {
-  fetch(`http://localhost:8080/api/events`, {
-    method: "POST",
-    headers: {
-      "Content-type": "application/JSON"
-    },
-    body: JSON.stringify(event)
-  })
-    .then(() => {
-      console.log("posted");
-      props.getRequest();
-    });
-}
-
-// put request
-const putRequest = () => {
-  console.log(event);
-  fetch(`http://localhost:8080/api/events/${event.id}`, {
-    method: "PUT",
-    headers: {
-      "Content-type": "application/JSON"
-    },
-    body: JSON.stringify(event)
-  })
-    .then(() => {
-      console.log("put");
-      props.getRequest();
-    });
-}
-
+  const postRequest = () => {
+    fetch(`http://localhost:8080/api/events`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/JSON"
+      },
+      body: JSON.stringify(event)
+    })
+      .then(() => {
+        props.getRequest();
+      });
+  }
+  const putRequest = () => {
+    fetch(`http://localhost:8080/api/events/${event.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/JSON"
+      },
+      body: JSON.stringify(event)
+    })
+      .then(() => {
+        props.getRequest();
+      });
+  }
 
   const style = {
     position: 'absolute',
@@ -84,7 +70,6 @@ const putRequest = () => {
     boxShadow: 24,
     p: 4,
   };
-
 
   return (
     <div className="main-modal">

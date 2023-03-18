@@ -5,7 +5,6 @@ import Modal from '@mui/material/Modal';
 const Delete = (props) => {
   // open={delOpen} onClose={handleDelClose} event={data} setEvent={setData} setDelOpen={setDelOpen} getRequest={props.getRequest}
 
-  // delete request
   const deleteRequest = (id) => {
     fetch(`http://localhost:8080/api/events/${id}`, {
       method: "DELETE",
@@ -14,14 +13,12 @@ const Delete = (props) => {
       },
     })
       .then(() => {
-        console.log("delete");
         props.getRequest();
       });
   }
 
   const handleDelete = (e) => {
     e.preventDefault();
-    console.log(props.event.id);
     deleteRequest(props.event.id);
     props.setDelOpen(false);
   }

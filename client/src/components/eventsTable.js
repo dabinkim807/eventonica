@@ -30,16 +30,13 @@ const EventsTable = (props) => {
   const [delOpen, setDelOpen] = useState(false);
 
   const handleOpen = (eventData) => {
-    console.log(eventData);
     setData(eventData);
     setOpen(true);
   }
   const handleDelOpen = (eventData) => {
-    console.log(eventData);
     setData(eventData);
     setDelOpen(true);
   }
-
   const handleClose = () => setOpen(false);
   const handleDelClose = () => setDelOpen(false);
 
@@ -74,7 +71,6 @@ const EventsTable = (props) => {
             ))}
           </TableBody>
         </Table>
-        
       </TableContainer>
 
       <AddOrEdit open={open} onClose={handleClose} event={data} setEvent={setData} setOpen={setOpen} getRequest={props.getRequest} />
