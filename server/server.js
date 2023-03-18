@@ -91,7 +91,7 @@ app.post('/api/events', async (req, res) => {
 
 // ** PUT request - update existing event **
 app.put('/api/events/:eventID', async (req, res) => {
-	const id = parsetInt(req.query.eventID);
+	const id = parseInt(req.query.eventID);
 
 	// Postgres db
 	try {
