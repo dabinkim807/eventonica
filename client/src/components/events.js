@@ -1,32 +1,45 @@
 import { useState, useEffect } from "react";
-import EventCard from "./eventcard";
-// may not be called card group anymore-
-import CardGroup from "react-bootstrap/Card"; 
+import EventsTable from "./eventsTable";
+import AddOrEdit from "./addOrEdit";
 
 function Events() {
-	const [events, setEvents] = useState([]);
+	const defaultEvent = {
+    id: null,
+    name: "",
+    date: "",
+    description: "",
+    category: "Personal"
+  };
 
-	useEffect(() => {
+	const [events, setEvents] = useState([]);
+	const [data, setData] = useState(defaultEvent);
+  const [open, setOpen] = useState(false);
+
+	const getRequest = () => {
 		fetch("http://localhost:8080/api/events")
-			.then((response) => response.json())
-			.then((events) => {
-				setEvents(events);
-				console.log("Events fetched...", events);
+		.then((response) => response.json())
+		.then(events => {
+			for (let event of events) {
+				event.date = event.date.substring(0, 16);
+			}
+			setEvents(events); 
+			console.log('Events fetched...', events);
 			});
-	}, []);
+	}
+
+	useEffect(() => {getRequest()}, []);
+
+	const handleOpen = () => {
+    setOpen(true);
+  }
+	const handleClose = () => setOpen(false);
 
 	return (
-		// card group no longer recognized https://react-bootstrap.netlify.app/components/cards/#rb-docs-content
-		<CardGroup className="Events">
-			{events.map((event) => (
-				<EventCard
-					key={event.id}
-					title={event.title}
-					location={event.location}
-					time={event.eventtime}
-				/>
-			))}
-		</CardGroup>
+		<>
+			{events.length !== 0 ? <EventsTable data={events} getRequest={getRequest} /> : <></>}
+			<button onClick={handleOpen}>New Event</button>
+			<AddOrEdit open={open} onClose={handleClose} event={data} setEvent={setData} setOpen={setOpen} getRequest={getRequest} />
+		</>
 	);
 }
 
